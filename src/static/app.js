@@ -20,11 +20,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
+        // Add participants section (shows a bulleted list or a "none yet" message)
+        const participantsHTML = (details.participants && details.participants.length)
+          ? `<p><strong>Participants (${details.participants.length}):</strong></p>
+             <ul class="participants-list">
+               ${details.participants.map(p => `<li>${p}</li>`).join('')}
+             </ul>`
+          : `<p class="no-participants"><strong>Participants:</strong> <em>None yet</em></p>`;
+
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
+          ${participantsHTML}
         `;
 
         activitiesList.appendChild(activityCard);
